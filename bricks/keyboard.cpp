@@ -18,10 +18,11 @@ unsigned long last_simulated_key=0;
 
 void keyboardSetup()
 {
-       pinMode(left_key,INPUT_PULLUP);
-       pinMode(up_key,INPUT_PULLUP);
-       pinMode(right_key,INPUT_PULLUP);
-       pinMode(down_key,INPUT_PULLUP);
+    pinMode(left_key,INPUT_PULLUP);
+    pinMode(up_key,INPUT_PULLUP);
+    pinMode(right_key,INPUT_PULLUP);
+    pinMode(down_key,INPUT_PULLUP);
+    pinMode(enter_key,INPUT_PULLUP);
 
 }
 
@@ -37,11 +38,12 @@ void keyboardCheck()
 
 
     int presentKeyPressed=0;
-    if(digitalRead(left_key)==LOW) presentKeyPressed = left_key;
-    if(digitalRead(right_key)==LOW) presentKeyPressed = right_key;
-    if(digitalRead(up_key)==LOW) presentKeyPressed = up_key;
-    if(digitalRead(down_key)==LOW) presentKeyPressed = down_key;
-    
+    if(digitalRead(left_key)==0) presentKeyPressed = left_key;
+    if(digitalRead(right_key)==0) presentKeyPressed = right_key;
+    if(digitalRead(up_key)==0) presentKeyPressed = up_key;
+    if(digitalRead(down_key)==0) presentKeyPressed = down_key;
+    if(digitalRead(enter_key)==0) presentKeyPressed = enter_key;
+
 //nothing pressed. reset all
     if(presentKeyPressed==0)
     {
@@ -124,3 +126,4 @@ void keyboardAutorepeat(char cOn)
 {
     cKeyboardAutorepeat = cOn;
 }
+

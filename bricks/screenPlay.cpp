@@ -5,6 +5,7 @@
 #include "audio.h"
 #include "bricks.h"
 
+
 /*
 
 playfield 14X15
@@ -60,7 +61,7 @@ char screenPlayCheckEnd()
     {
         for(int y=1; y<=7; y++)
         {
-            if(x!=iSPx&&y!=iSPy)
+            if(!(x==iSPx&&y==iSPy))
             {
                 if(displayPixelState(x,y)!=0) return 0;
             }
@@ -148,7 +149,7 @@ char screenPlayBounce(int iX,int iY)
         }
     }
 
-    if(iY>=15)//bottom?! is there the pad under it?
+    if(iY>=15)//end of screen
     {
         cRet=1;
     }
@@ -356,6 +357,7 @@ char screenPlay(void)
     if(cSPredraw==1)
     {
         //reset all!!!!
+        iSPscreen=0;
         iSPballs=SPballs;
         iSPspeed=iSMspeed;
         cSPredraw=0;
@@ -395,11 +397,17 @@ char screenPlay(void)
                 displayPixel(iSPx ,iSPy ,_draw_set);
                 break;
             case 1://error
+                if(cSMsound!=0)
+                {
+                    play_rtttl_stop();
+                    play_rtttl_start_no_repeat(soundLoose);
+                }
                 cSPstate=0;//lost ball
                 //lost ball
                 iSPballs--;
                 if( iSPballs>0)
-                {//balls left so restart from here
+                {
+                    //balls left so restart from here
                     screenPlayRedrawBalls();
                     iSPx=(iSPpadX+1);
                     iSPy=13;
@@ -407,16 +415,20 @@ char screenPlay(void)
 
                 }
                 else
-                {//no more balls
-                    if(cSMsound!=0)
-                    {
-                        play_rtttl_stop();
-                    }
+                {
+                    //no more balls
                     cSPredraw=1;//next time redraw screen
                     return _screenEnd;//jump to end screen
                 }
                 break;
             case 2://bounce. do not move at all
+
+                if(cSMsound!=0&&iSMtone==0)
+                {
+                    play_rtttl_start_no_repeat(soundPing);
+                }
+
+
                 break;
             case 3://bounce against brick and end of screen
                 cSPstate=0;//but no lost ball
@@ -429,10 +441,11 @@ char screenPlay(void)
                 iSPx=(iSPpadX+1);
                 iSPy=13;
                 screenPlayRedraw();
-                    if(cSMsound!=0)
-                    {
-                        play_rtttl_stop();
-                    }
+                if(cSMsound!=0)
+                {
+                    play_rtttl_stop();
+                    play_rtttl_start_no_repeat(soundWin);
+                }
             }
         }
     }
@@ -442,8 +455,10 @@ char screenPlay(void)
     switch(keyboardGetKey())
     {
     case up_key:
+    case enter_key:
         if(cSPstate==0)
-        {//start play
+        {
+            //start play
             cSPstate=1;
             iSPdx=(-7+iSPpadX)*10;
             iSPdy=-5*10;
@@ -457,17 +472,20 @@ char screenPlay(void)
         break;
     case left_key:
         if(iSPpadX>1)
-        {//move pad
+        {
+            //move pad
             displayLineDx(iSPpadX,14,iSPpadDx,_draw_reset);
             if(cSPstate==0)
-            {//move ball with pad
+            {
+                //move ball with pad
                 displayPixel(iSPx,iSPy,_draw_reset);
                 iSPx--;
             }
             iSPpadX--;
             displayLineDx(iSPpadX,14,iSPpadDx,_draw_set);
             if(cSPstate==0)
-            {//move ball with pad
+            {
+                //move ball with pad
                 displayPixel(iSPx,iSPy,_draw_set);
             }
         }
@@ -478,14 +496,16 @@ char screenPlay(void)
         {
             displayLineDx(iSPpadX,14,iSPpadDx,_draw_reset);
             if(cSPstate==0)
-            {//move ball with pad
+            {
+                //move ball with pad
                 displayPixel(iSPx,iSPy,_draw_reset);
                 iSPx++;
             }
             iSPpadX++;
             displayLineDx(iSPpadX,14,iSPpadDx,_draw_set);
             if(cSPstate==0)
-            {//move ball with pad
+            {
+                //move ball with pad
                 displayPixel(iSPx,iSPy,_draw_set);
             }
         }
@@ -494,3 +514,4 @@ char screenPlay(void)
 
     return _screenPlay;
 }
+

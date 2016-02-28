@@ -4,7 +4,6 @@
 #include "screenMenu.h"
 #include "audio.h"
 #include "bricks.h"
-
 /*
 
 playfield 14X15
@@ -88,6 +87,10 @@ char screenSlideshow(void)
     case down_key:
     case left_key:
     case right_key:
+    case enter_key:
+
+
+
         cSSredraw=1;
         play_rtttl_stop();
         return _screenMenu;
@@ -99,3 +102,4 @@ char screenSlideshow(void)
 
     return _screenSlideshow;
 }
+

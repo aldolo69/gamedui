@@ -7,7 +7,7 @@
 MENU:
 >  t1/t2/t3 melodia
    Musica/NoMusica
-   V1/V2/V3 velocit�
+   V1/V2/V3 velocità
    Giocare
 
 */
@@ -75,7 +75,7 @@ char screenMenuAction(int key)
 
 //    >  t1/t2/t3 melodia
 //   Musica/NoMusica
-//   V1/V2/V3 velocit�
+//   V1/V2/V3 velocità
 //   Giocare
 
     switch(iSMtop+iSMarrow)//0..3
@@ -198,7 +198,7 @@ char screenMenu()
 
 
 
-    if(i==left_key||i==right_key)
+    if(i==left_key||i==right_key||i==enter_key)
     {
         cSMredraw=1;//maybe we are leaving
         cRedraw=0;//aways redraw
@@ -214,3 +214,4 @@ char screenMenu()
 
     return _screenMenu;
 }
+
