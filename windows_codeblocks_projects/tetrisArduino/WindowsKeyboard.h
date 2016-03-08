@@ -1,0 +1,1 @@
+extern WORD windowsReadKeyboard(void );

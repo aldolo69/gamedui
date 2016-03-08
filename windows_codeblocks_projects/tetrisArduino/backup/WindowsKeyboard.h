@@ -1,0 +1,1 @@
+extern WORD windowsReadKayboard(void );

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="bricks" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/bricks" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="libwinmm.a" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/bricks" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="libwinmm.a" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="LedControl.h" />
+		<Unit filename="WindowsDisplay.cpp" />
+		<Unit filename="WindowsDisplay.h" />
+		<Unit filename="WindowsInclude.h" />
+		<Unit filename="WindowsInputBits.cpp" />
+		<Unit filename="WindowsInputBits.h" />
+		<Unit filename="WindowsKeyboard.cpp" />
+		<Unit filename="WindowsKeyboard.h" />
+		<Unit filename="WindowsSound.cpp" />
+		<Unit filename="WindowsSound.h" />
+		<Unit filename="WindowsUtils.cpp" />
+		<Unit filename="WindowsUtils.h" />
+		<Unit filename="audio.cpp" />
+		<Unit filename="audio.h" />
+		<Unit filename="break.cpp" />
+		<Unit filename="break.h" />
+		<Unit filename="display.cpp" />
+		<Unit filename="display.h" />
+		<Unit filename="externdeclaration.h" />
+		<Unit filename="keyboard.cpp" />
+		<Unit filename="keyboard.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="screenEnd.cpp" />
+		<Unit filename="screenEnd.h" />
+		<Unit filename="screenMenu.cpp" />
+		<Unit filename="screenMenu.h" />
+		<Unit filename="screenPlay.cpp" />
+		<Unit filename="screenPlay.h" />
+		<Unit filename="screenSlideshow.cpp" />
+		<Unit filename="screenSlideshow.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

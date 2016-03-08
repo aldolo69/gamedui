@@ -1,0 +1,365 @@
+
+#include "keyboard.h"
+#include "display.h"
+#include "WindowsInclude.h"
+
+
+
+
+//found at https://github.com/flickerfly/Music_Box/blob/master/play_rtttl.ino
+
+//#include <Arduino.h>
+//#include "tetris.h"
+
+int tonePin = 7;
+
+#define OCTAVE_OFFSET 0
+
+// These values can also be found as constants in the Tone library (Tone.h)
+int notes[] = { 0,
+                262, 277, 294, 311, 330, 349, 370, 392, 415, 440, 466, 494,
+                523, 554, 587, 622, 659, 698, 740, 784, 831, 880, 932, 988,
+                1047, 1109, 1175, 1245, 1319, 1397, 1480, 1568, 1661, 1760, 1865, 1976,
+                2093, 2217, 2349, 2489, 2637, 2794, 2960, 3136, 3322, 3520, 3729, 3951
+              };
+
+//add here a nokia tone. remember to update the "song" array below
+
+
+const char song0[] PROGMEM =
+    "pacman:d=4,o=5,b=112:32b,32p,32b6,32p,32f#6,32p,32d#6,32p,32b6,32f#6,16p,16d#6,16p,32c6,32p,32c7,32p,32g6,32p,32e6,32p,32c7,32g6,16p,16e6,16p,32b,32p,32b6,32p,32f#6,32p,32d#6,32p,32b6,32f#6,16p,16d#6,16p,32d#6,32e6,32f6,32p,32f6,32f#6,32g6,32p,32g6,32g#6,32a6,32p,32b.6,p";
+const char song1[] PROGMEM =
+    "loose:d=64,o=4,b=64:e,d,32c,p";
+const char song2[] PROGMEM =
+    "win:d=64,o=7,b=64:c,128p,c,128p,c,128p,8e,p";
+const char song3[] PROGMEM =
+    "bong:d=64,o=7,b=64:e,p";
+
+
+const  char *  const song[] =
+{
+    song0, song1, song2, song3
+};
+
+
+//scorro la canzone da questo indice in avanti. quando la nota che sto suonando finisce passo alla successiva richiamando play_rtttl
+//la funzione decide per quanto tempo devo tenere la nota. finita la nota
+//si passa alla nota successiva
+int songIndex = 0; //indice della nota che sto suonando adesso
+int songFreq = 0; //frequenza della nota che sto suonando adesso
+unsigned long songTime = 0; //durata della nota che sto suonando adesso
+int songbpm = 63;
+unsigned char songdefault_dur = 4;
+unsigned char songdefault_oct = 6;
+long songwholenote;
+int songNumber = 0;
+
+
+char songPlaying=0;
+
+
+unsigned char songEnabled = 0;
+unsigned char songAutoRepeat = 0;
+
+
+
+char songCache[8];
+int songCacheIndex = -99;
+int songCacheNumber = -99;
+
+int play_rtttl_song()
+{
+    return songNumber;
+}
+
+char * songCacheRead(int iNumber, int iIndex)
+{
+    if (songCacheNumber != iNumber) //changed song?
+    {
+        songCacheIndex = -99; //discard old cache
+    }
+
+    if (iIndex >= (songCacheIndex + 8)) //out of boundaries?
+    {
+        songCacheIndex = -99; //discard old cache
+    }
+    if (songCacheIndex < 0)
+    {
+        songCacheIndex = iIndex;
+        memcpy_P((void *)songCache, (void *)(song[songNumber] + iIndex), 8);
+    }
+
+    return songCache + (iIndex - songCacheIndex);
+
+}
+
+#define isdigit(n) (n >= '0' && n <= '9')
+
+int play_rtttl()
+{
+
+    char *p;//next byte!!
+    int num;
+
+    long duration;
+    unsigned char note;
+    unsigned char scale;
+
+    if (songEnabled == 0) return 0;
+
+
+    p = songCacheRead(songNumber, songIndex);
+    if (*p == 0)
+    {
+        if(songAutoRepeat!=0)
+
+        {
+            return 1; //end of song
+        }
+        else
+        {
+            songPlaying=0;
+            return 0; //end of song, but do not notify so end forever
+
+        }
+    }
+
+
+songPlaying=1;
+
+
+    // format: d=N,o=N,b=NNN:
+    // find the start (skip name, etc)
+
+    if (songIndex == 0) //begin of song
+    {
+
+        songbpm = 63;
+        songdefault_dur = 4;
+        songdefault_oct = 6;
+
+
+        while (*p != ':')
+        {
+            // ignore name
+            songIndex++;
+            p = songCacheRead(songNumber, songIndex);
+        }
+        // skip ':'
+        songIndex++;
+        p = songCacheRead(songNumber, songIndex);
+        // get default duration
+        if (*p == 'd')
+        {
+
+            // skip "d="
+            songIndex++;
+            songIndex++;
+            p = songCacheRead(songNumber, songIndex);
+            num = 0;
+            while (isdigit(*p))
+            {
+                num = (num * 10) + (*p - '0');
+                songIndex++;
+                p = songCacheRead(songNumber, songIndex);
+            }
+            if (num > 0) songdefault_dur = num;
+            // skip comma
+            songIndex++;
+            p = songCacheRead(songNumber, songIndex);
+        }
+
+        // Serial.print("ddur: "); Serial.println(songdefault_dur, 10);
+
+        // get default octave
+        if (*p == 'o')
+        {
+            // skip "o="
+            songIndex++;
+            songIndex++;
+            p = songCacheRead(songNumber, songIndex);
+            num = *p - '0';
+            songIndex++;
+            p = songCacheRead(songNumber, songIndex);
+            if (num >= 3 && num <= 7) songdefault_oct = num;
+            // skip comma
+            songIndex++;
+            p = songCacheRead(songNumber, songIndex);
+        }
+
+        //Serial.print("doct: "); Serial.println(songdefault_oct, 10);
+
+        // get BPM
+        if (*p == 'b')
+        {
+            // skip "b="
+            songIndex++;
+            songIndex++;
+            p = songCacheRead(songNumber, songIndex);
+            num = 0;
+            while (isdigit(*p))
+            {
+                num = (num * 10) + (*p - '0');
+                songIndex++;
+                p = songCacheRead(songNumber, songIndex);
+            }
+            songbpm = num;
+            // skip colon
+            songIndex++;
+            p = songCacheRead(songNumber, songIndex);
+        }
+
+        //Serial.print("bpm: "); Serial.println(songbpm, 10);
+
+        // BPM usually expresses the number of quarter notes per minute
+        songwholenote = (60 * 1000L / songbpm) * 4;  // this is the time for whole note (in milliseconds)
+
+        //Serial.print("wn: "); Serial.println(songwholenote, 10);
+    }
+
+
+    // now begin note loop
+    while (*p)
+    {
+        // first, get note duration, if available
+        num = 0;
+        while (isdigit(*p))
+        {
+            num = (num * 10) + (*p - '0');
+            songIndex++;
+            p = songCacheRead(songNumber, songIndex);
+        }
+
+        if (num) duration = songwholenote / num;
+        else duration = songwholenote / songdefault_dur;  // we will need to check if we are a dotted note after
+
+        // now get the note
+        note = 0;
+
+        switch (*p)
+        {
+        case 'c':
+            note = 1;
+            break;
+        case 'd':
+            note = 3;
+            break;
+        case 'e':
+            note = 5;
+            break;
+        case 'f':
+            note = 6;
+            break;
+        case 'g':
+            note = 8;
+            break;
+        case 'a':
+            note = 10;
+            break;
+        case 'b':
+            note = 12;
+            break;
+        case 'p':
+        default:
+            note = 0;
+        }
+        songIndex++;
+        p = songCacheRead(songNumber, songIndex);
+        // now, get optional '#' sharp
+        if (*p == '#')
+        {
+            note++;
+            songIndex++;
+            p = songCacheRead(songNumber, songIndex);
+        }
+
+        // now, get optional '.' dotted note
+        if (*p == '.')
+        {
+            duration += duration / 2;
+            songIndex++;
+            p = songCacheRead(songNumber, songIndex);
+        }
+
+        // now, get scale
+        if (isdigit(*p))
+        {
+            scale = *p - '0';
+            songIndex++;
+            p = songCacheRead(songNumber, songIndex);
+        }
+        else
+        {
+            scale = songdefault_oct;
+        }
+
+        scale += OCTAVE_OFFSET;
+
+        if (*p == ',')
+        {
+            // skip comma for next note (or we may be at the end)
+            songIndex++;
+            p = songCacheRead(songNumber, songIndex);
+        }
+        // now play the note
+
+        if (note)
+        {
+            //  Serial.print("Playing: ");
+            //  Serial.print(scale, 10); Serial.print(' ');
+            //  Serial.print(note, 10); Serial.print(" (");
+            //  Serial.print(notes[(scale - 4) * 12 + note], 10);
+            //  Serial.print(") ");
+            //  Serial.println(duration, 10);
+
+            songFreq = notes[(scale - 4) * 12 + note];
+            tone(tonePin, songFreq);
+            //next time this function will be called...
+            songTime = millis() + (duration * 12) / 10; //      delay(duration);
+        }
+        else
+        {
+            songFreq = 0;
+            //Serial.print("Pausing: ");
+            //Serial.println(duration, 10);
+            //                   delay(duration);
+            noTone(tonePin);
+            songTime = millis() + (duration * 12) / 10; //
+        }
+
+
+        return 0;
+
+    }
+
+
+
+    return 1;
+
+}
+
+
+int play_rtttl_stop()
+{
+    noTone(tonePin);
+    songEnabled = 0;
+    return 0;
+}
+
+int play_rtttl_start(int song)
+{
+    noTone(tonePin);
+    songNumber = song;
+    songIndex = 0;
+    songEnabled = 1;
+    songAutoRepeat=1;
+    songTime=0;
+    return 0;
+}
+
+void play_rtttl_start_no_repeat(int song)
+{
+    play_rtttl_start( song);
+    songAutoRepeat=0;
+}
+

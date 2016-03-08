@@ -1,0 +1,130 @@
+# depslib dependency file v1.0
+1448691955 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\main.cpp
+	<iostream>
+	"WindowsInclude.h"
+	"arduino.h"
+	"keyboard.h"
+	"display.h"
+
+1448651797 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\windowssound.h
+
+1448913278 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\windowsutils.h
+
+1448603105 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\arduino.ino.h
+	"keyboard.h"
+	"display.h"
+
+1448912857 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\display.cpp
+	"mem.h"
+	"display.h"
+
+1448652185 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\windowsdisplay.h
+
+1448802190 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\display.h
+
+1448651900 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\windowskeyboard.h
+
+1448653009 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\windowsinputbits.h
+	<windows.h>
+
+1448691654 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\keyboard.cpp
+	"WindowsInclude.h"
+	"keyboard.h"
+
+1448653040 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\windowsinclude.h
+	"windef.h"
+	"WindowsSound.h"
+	"WindowsUtils.h"
+	"WindowsDisplay.h"
+	"WindowsKeyboard.h"
+	"WindowsInputBits.h"
+
+1448651262 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\keyboard.h
+
+1448652185 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\windowsdisplay.cpp
+	<stdio.h>
+	<iostream>
+	<cstdlib>
+	<iostream>
+	<windows.h>
+
+1448653040 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\windowsinclude.h
+	"windef.h"
+	"WindowsSound.h"
+	"WindowsUtils.h"
+	"WindowsDisplay.h"
+	"WindowsKeyboard.h"
+	"WindowsInputBits.h"
+
+1448692627 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\windowsinputbits.cpp
+	<windows.h>
+
+1448653247 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\windowskeyboard.cpp
+	<windows.h>
+	<iostream>
+	"display.h"
+
+1448651797 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\windowssound.cpp
+	<iostream>
+	<cmath>
+	<windows.h>
+	<mmsystem.h>
+	<conio.h>
+	<stdio.h>
+
+1448913393 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\windowsutils.cpp
+	<windows.h>
+	<stdlib.h>
+
+1448695653 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\arduino.h
+
+1448821846 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\arduino.cpp
+	"keyboard.h"
+	"display.h"
+	"audio.h"
+	"WindowsInclude.h"
+	"arduino.h"
+	"screenMenu.h"
+	"screenPlay.h"
+	"screenEnd.h"
+
+1448688742 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\audio.h
+
+1448687680 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\audio.c
+	"keyboard.h"
+	"display.h"
+	"WindowsInclude.h"
+
+1448912321 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\audio.cpp
+	"keyboard.h"
+	"display.h"
+	"WindowsInclude.h"
+
+1448787671 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\screenmenu.h
+
+1448783126 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\screenmenu.cpp
+	"arduino.h"
+	"keyboard.h"
+	"display.h"
+
+1448822199 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\screenplay.h
+
+1448913427 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\screenplay.cpp
+	"arduino.h"
+	"keyboard.h"
+	"display.h"
+	"screenMenu.h"
+	"WindowsInclude.h"
+	"audio.h"
+
+1448821414 c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\screenend.h
+
+1448822738 source:c:\users\utente2\documents\codeblocks\tetrisarduino\tetrisarduino\screenend.cpp
+	"arduino.h"
+	"keyboard.h"
+	"display.h"
+	"screenMenu.h"
+	"screenPlay.h"
+	"WindowsInclude.h"
+	"audio.h"
+

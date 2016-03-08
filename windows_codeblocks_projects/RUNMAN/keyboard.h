@@ -1,0 +1,12 @@
+#define left_key 3
+#define up_key 2
+#define right_key 4
+#define down_key 5
+#define enter_key 6
+//#define space_key 7
+
+
+extern int keyboardGetKey(void);
+extern void keyboardSetup(void);
+extern void keyboardCheck(void);
+extern void keyboardAutorepeat(char cOn);

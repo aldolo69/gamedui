@@ -1,0 +1,128 @@
+# depslib dependency file v1.0
+1456202548 source:c:\users\utente2\documents\codeblocks\runman\main.cpp
+	<iostream>
+	"WindowsInclude.h"
+	"runman.h"
+	"keyboard.h"
+	"display.h"
+
+1448653040 c:\users\utente2\documents\codeblocks\runman\windowsinclude.h
+	"windef.h"
+	"WindowsSound.h"
+	"WindowsUtils.h"
+	"WindowsDisplay.h"
+	"WindowsKeyboard.h"
+	"WindowsInputBits.h"
+
+1448651797 c:\users\utente2\documents\codeblocks\runman\windowssound.h
+
+1449591038 c:\users\utente2\documents\codeblocks\runman\windowsutils.h
+
+1448948291 c:\users\utente2\documents\codeblocks\runman\windowsdisplay.h
+
+1449589621 c:\users\utente2\documents\codeblocks\runman\windowskeyboard.h
+
+1451563244 c:\users\utente2\documents\codeblocks\runman\windowsinputbits.h
+	<windows.h>
+
+1456171647 c:\users\utente2\documents\codeblocks\runman\keyboard.h
+
+1456287403 c:\users\utente2\documents\codeblocks\runman\display.h
+	"WindowsInclude.h"
+
+1456259807 source:c:\users\utente2\documents\codeblocks\runman\audio.cpp
+	"keyboard.h"
+	"display.h"
+	"WindowsInclude.h"
+
+1456347813 source:c:\users\utente2\documents\codeblocks\runman\display.cpp
+	"mem.h"
+	"display.h"
+	"WindowsInclude.h"
+	"LedControl.h"
+
+1449589352 c:\users\utente2\documents\codeblocks\runman\ledcontrol.h
+	"WindowsDisplay.h"
+
+1456171780 source:c:\users\utente2\documents\codeblocks\runman\keyboard.cpp
+	"WindowsInclude.h"
+	"keyboard.h"
+
+1455825888 source:c:\users\utente2\documents\codeblocks\runman\runman.cpp
+	"keyboard.h"
+	"display.h"
+	"audio.h"
+	"WindowsInclude.h"
+	"runman.h"
+	"screenMenu.h"
+	"screenPlay.h"
+	"screenEnd.h"
+	"screenSlideshow.h"
+
+1456259832 c:\users\utente2\documents\codeblocks\runman\audio.h
+
+1451036073 c:\users\utente2\documents\codeblocks\runman\runman.h
+
+1456259255 c:\users\utente2\documents\codeblocks\runman\screenmenu.h
+
+1448822199 c:\users\utente2\documents\codeblocks\runman\screenplay.h
+
+1448821414 c:\users\utente2\documents\codeblocks\runman\screenend.h
+
+1451038584 c:\users\utente2\documents\codeblocks\runman\screenslideshow.h
+
+1456207623 source:c:\users\utente2\documents\codeblocks\runman\screenend.cpp
+	"keyboard.h"
+	"display.h"
+	"screenMenu.h"
+	"screenPlay.h"
+	"WindowsInclude.h"
+	"audio.h"
+	"runman.h"
+
+1456264146 source:c:\users\utente2\documents\codeblocks\runman\screenmenu.cpp
+	"runman.h"
+	"keyboard.h"
+	"display.h"
+
+1456288711 source:c:\users\utente2\documents\codeblocks\runman\screenplay.cpp
+	"keyboard.h"
+	"display.h"
+	"screenMenu.h"
+	"WindowsInclude.h"
+	"audio.h"
+	"runman.h"
+
+1456259486 source:c:\users\utente2\documents\codeblocks\runman\screenslideshow.cpp
+	"keyboard.h"
+	"display.h"
+	"screenMenu.h"
+	"WindowsInclude.h"
+	"audio.h"
+	"runman.h"
+
+1456287185 source:c:\users\utente2\documents\codeblocks\runman\windowsdisplay.cpp
+	<stdio.h>
+	<iostream>
+	<cstdlib>
+	<iostream>
+	<windows.h>
+
+1448692627 source:c:\users\utente2\documents\codeblocks\runman\windowsinputbits.cpp
+	<windows.h>
+
+1449589964 source:c:\users\utente2\documents\codeblocks\runman\windowskeyboard.cpp
+	<windows.h>
+
+1449590644 source:c:\users\utente2\documents\codeblocks\runman\windowssound.cpp
+	<iostream>
+	<cmath>
+	<windows.h>
+	<mmsystem.h>
+	<conio.h>
+	<stdio.h>
+
+1449590730 source:c:\users\utente2\documents\codeblocks\runman\windowsutils.cpp
+	<windows.h>
+	<stdlib.h>
+
